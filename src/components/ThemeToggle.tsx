@@ -1,35 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import MoonIcon from '@/icons/MoonIcon';
+import SunIcon from '@/icons/SunIcon';
+import { useTheme } from 'next-themes';
 
 export default function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
-  const [dark, setDark] = useState(false);
-
-  // sync with initial DOM
-  useEffect(() => {
-    setMounted(true);
-    const html = document.documentElement;
-    setDark(html.classList.contains('dark'));
-  }, []);
+  const { theme, setTheme } = useTheme();
 
   const toggle = () => {
-    const html = document.documentElement;
-    const nowDark = !dark;
-    html.classList.toggle('dark', nowDark);
-    html.classList.toggle('light', !nowDark); // marks a manual choice
-    localStorage.setItem('theme', nowDark ? 'dark' : 'light'); // persist
-    setDark(nowDark);
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
-  if (!mounted) return null; // avoids hydration flash
-
+  console.log('Current theme:', theme);
   return (
     <button
       onClick={toggle}
-      className="rounded border px-3 py-2 text-sm hover:bg-gray-200 dark:hover:bg-gray-700"
+      className="fixed top-4 right-4 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-[var(--foreground)] text-[var(--background)] shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
     >
-      {dark ? '☀️ Light' : '🌙 Dark'}
+      {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
     </button>
   );
 }
