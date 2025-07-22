@@ -1,5 +1,4 @@
 import ThemeToggle from "@/components/ThemeToggle";
-import RightArrow from "@/icons/RightArrow";
 
 export default function Home() {
     return (
