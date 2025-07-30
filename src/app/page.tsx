@@ -1,6 +1,6 @@
 import ThemeToggle from "@/components/ThemeToggle";
 import Projects from "@/components/Projects";
-import StickmanWave from "@/components/Stickman";
+import Stickman from "@/components/Stickman";
 
 export default function Home() {
     return (
@@ -29,8 +29,8 @@ export default function Home() {
                         <br />
                         <strong>world: </strong>... <br />
                     </p>
+                    <Stickman />
                 </div>
-                <StickmanWave />
                 <Projects />
             </div>
         </section>
