@@ -1,4 +1,5 @@
 import { projects } from "../projects";
+import ScrollIndicator from "./ScrollIndicator";
 
 const Projects = () => {
     return (
@@ -12,6 +13,7 @@ const Projects = () => {
                 position: "relative",
             }}
         >
+            <ScrollIndicator direction="up"/>
             <div className="mt-8 text-3xl text-center font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl">
                 Curated Projects
             </div>
@@ -29,6 +31,7 @@ const Projects = () => {
                     );
                 })}
             </div>
+            <ScrollIndicator direction="end"/>
         </section>
     );
 };

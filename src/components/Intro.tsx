@@ -1,6 +1,8 @@
 "use client";
 
+import React from "react";
 import Stickman from "./Stickman";
+import ScrollIndicator from "./ScrollIndicator";
 
 const Intro = () => {
     return (
@@ -23,18 +25,7 @@ const Intro = () => {
                 speed, and precision to every project I touch.
             </p>
             <Stickman />
-            <div
-                style={{
-                    position: "absolute",
-                    bottom: "20px",
-                    width: "100%",
-                    textAlign: "center",
-                    fontSize: "1.5rem",
-                    color: "#0070f3",
-                }}
-            >
-                Scroll Down ▼
-            </div>
+            <ScrollIndicator direction="down"/>
         </section>
     );
 };
