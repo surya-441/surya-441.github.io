@@ -2,7 +2,7 @@
 
 export default function Stickman() {
     return (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex h-64">
             <svg
                 height="300.000000pt"
                 preserveAspectRatio="xMidYMid meet"
@@ -16,7 +16,7 @@ export default function Stickman() {
                     }
                 </metadata>
                 <g
-                    fill="#000000"
+                    fill="text-foreground"
                     stroke="none"
                     transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)"
                 >

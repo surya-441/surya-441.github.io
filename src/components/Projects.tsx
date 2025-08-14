@@ -2,7 +2,16 @@ import { projects } from "../projects";
 
 const Projects = () => {
     return (
-        <>
+        <section
+            style={{
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "relative",
+            }}
+        >
             <div className="mt-8 text-3xl text-center font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl">
                 Curated Projects
             </div>
@@ -20,7 +29,7 @@ const Projects = () => {
                     );
                 })}
             </div>
-        </>
+        </section>
     );
 };
 
