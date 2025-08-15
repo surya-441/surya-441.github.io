@@ -17,10 +17,10 @@ const Intro = () => {
                 position: "relative",
             }}
         >
-            <h2 className="text-center font-extrabold leading-tight tracking-tight sm:text-4xl">
+            <h2 className="text-center font-extrabold leading-tight tracking-tight sm:text-6xl">
                 Surya Sivakumar
             </h2>
-            <p className="mt-4 text-base font-normal text-foreground sm:text-2xl">
+            <p className="mt-4 text-base text-center text-foreground sm:text-3xl">
                 Full-stack developer and machine learning enthusiast with a 4.0
                 GPA Master’s in Computer Science from ASU. I bring clarity,
                 speed, and precision to every project I touch.

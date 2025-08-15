@@ -19,5 +19,6 @@ export const projects = [
         title: "DailyNews",
         description:
             "Developed a Node.js bot leveraging Meta’s Graph API to deliver automated, concise news updates to subscribed users via text messages. Implemented a webhook to handle customer requests efficiently and ensure seamless interaction.",
+        link: "https://github.com/surya-441/dailyNews",
     },
 ];
