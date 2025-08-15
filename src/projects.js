@@ -3,6 +3,7 @@ export const projects = [
         title: "Lobby Chat App",
         description:
             "Built a cross-compatible chat app using React Native and Expo to let users create private and public rooms. Each room will get unique room ID upon creation which is used to invite friends to join a lobby. The admin can also add AI bots to the chat room",
+        link: "https://github.com/surya-441/lobby-chat-client",
     },
     {
         title: "Map Filters",
