@@ -6,12 +6,12 @@ const WorkExperience = () => {
         <section
             style={{
                 minHeight: "100vh",
-                maxHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
                 position: "relative",
+                padding: "2rem 1rem",
             }}
         >
             <ScrollIndicator direction="up" />

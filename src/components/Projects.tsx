@@ -6,19 +6,19 @@ const Projects = () => {
         <section
             style={{
                 minHeight: "100vh",
-                maxHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
                 position: "relative",
+                padding: "2rem 1rem",
             }}
         >
             <ScrollIndicator direction="up"/>
             <div className="mt-8 text-4xl text-center font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl">
                 Curated Projects
             </div>
-            <div className="grid grid-cols-2 mt-12 text-center sm:mt-16 gap-x-20 gap-y-12 sm:grid-rows-2 lg:grid-rows-3">
+            <div className="grid grid-cols-1 mt-12 text-center sm:mt-16 gap-x-20 gap-y-12 sm:grid-cols-2 lg:grid-rows-3">
                 {projects.map((project) => {
                     return (
                         <div className="space-y-4" key={project.title}>

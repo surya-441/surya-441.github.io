@@ -9,18 +9,18 @@ const Intro = () => {
         <section
             style={{
                 minHeight: "100vh",
-                maxHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
                 position: "relative",
+                padding: "2rem 1rem",
             }}
         >
-            <h2 className="text-center font-extrabold leading-tight tracking-tight sm:text-6xl">
+            <h2 className="text-center font-extrabold leading-tight tracking-tight text-6xl md:text-7xl">
                 Surya Sivakumar
             </h2>
-            <p className="mt-4 text-base text-center text-foreground sm:text-3xl">
+            <p className="mt-4 text-base text-center text-foreground text-xl max-w-3xl">
                 Full-stack developer and machine learning enthusiast with a 4.0
                 GPA Master’s in Computer Science from ASU. I bring clarity,
                 speed, and precision to every project I touch.

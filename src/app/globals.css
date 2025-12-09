@@ -13,7 +13,13 @@ html.dark {
 html,
 body {
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+}
+
+@media (min-width: 768px) {
+    html,
+    body {
+        scroll-snap-type: y mandatory;
+    }
 }
 
 body {
