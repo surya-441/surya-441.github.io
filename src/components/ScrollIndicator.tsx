@@ -15,14 +15,10 @@ const scrollTextMapping: Record<ScrollDirection, string> = {
 const ScrollIndicator = ({ direction }: ScrollIndicatorProps) => {
   return (
     <div
+      className="absolute w-full text-center text-2xl"
       style={{
-        position: "absolute",
-        // Use top for 'up' direction, bottom otherwise
         ...(direction === "up" ? { top: "20px" } : { bottom: "20px" }),
-        width: "100%",
-        textAlign: "center",
-        fontSize: "1.5rem",
-        color: "#0070f3",
+        color: "var(--accent)",
       }}
     >
       {scrollTextMapping[direction]}
@@ -31,3 +27,4 @@ const ScrollIndicator = ({ direction }: ScrollIndicatorProps) => {
 };
 
 export default ScrollIndicator;
+

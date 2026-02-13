@@ -11,8 +11,22 @@ const patrickHand = Patrick_Hand({
 
 
 export const metadata: Metadata = {
-    title: "Surya's Portfolio",
-    description: "Next JS Portfolio",
+    title: "Surya Sivakumar — Full-Stack Developer & ML Enthusiast",
+    description:
+        "Full-stack developer and machine learning enthusiast with a 4.0 GPA Master's in Computer Science from ASU. Portfolio showcasing projects in React Native, Node.js, GIS, and computer vision.",
+    openGraph: {
+        title: "Surya Sivakumar — Full-Stack Developer & ML Enthusiast",
+        description:
+            "Full-stack developer and ML enthusiast with a 4.0 GPA Master's in CS from ASU.",
+        type: "website",
+        url: "https://surya-441.github.io",
+    },
+    twitter: {
+        card: "summary",
+        title: "Surya Sivakumar — Full-Stack Developer",
+        description:
+            "Full-stack developer and ML enthusiast with a 4.0 GPA Master's in CS from ASU.",
+    },
 };
 
 export default function RootLayout({

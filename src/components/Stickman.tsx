@@ -1,9 +1,10 @@
-"use client";
-
 export default function Stickman() {
     return (
         <div className="flex h-64">
             <svg
+                className="stickman-svg"
+                role="img"
+                aria-label="Stickman illustration waving hello"
                 height="300.000000pt"
                 preserveAspectRatio="xMidYMid meet"
                 viewBox="0 0 300.000000 300.000000"
