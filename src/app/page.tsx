@@ -1,3 +1,4 @@
+import ScrollManager from "@/components/ScrollManager";
 import ThemeToggle from "@/components/ThemeToggle";
 import Projects from "@/components/Projects";
 import Intro from "@/components/Intro";
@@ -7,13 +8,15 @@ import Skills from "@/components/Skills";
 
 export default function Home() {
     return (
-        <div className="bg-background text-foreground h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+        <div className="bg-background text-foreground h-screen overflow-hidden">
             <ThemeToggle />
-            <Intro />
-            <WorkExperience />
-            <Education />
-            <Projects />
-            <Skills />
+            <ScrollManager sectionCount={5}>
+                <Intro />
+                <WorkExperience />
+                <Education />
+                <Projects />
+                <Skills />
+            </ScrollManager>
         </div>
     );
 }
