@@ -11,11 +11,11 @@ const patrickHand = Patrick_Hand({
 
 
 export const metadata: Metadata = {
-    title: "Surya Sivakumar — Full-Stack Developer & ML Enthusiast",
+    title: "Surya Sivakumar",
     description:
         "Full-stack developer and machine learning enthusiast with a 4.0 GPA Master's in Computer Science from ASU. Portfolio showcasing projects in React Native, Node.js, GIS, and computer vision.",
     openGraph: {
-        title: "Surya Sivakumar — Full-Stack Developer & ML Enthusiast",
+        title: "Surya Sivakumar",
         description:
             "Full-stack developer and ML enthusiast with a 4.0 GPA Master's in CS from ASU.",
         type: "website",
