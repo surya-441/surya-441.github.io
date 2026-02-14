@@ -143,6 +143,9 @@ const WorkExperience = () => {
                 {experiences.map((_, idx) => (
                     <button
                         key={idx}
+                        style={{
+                            cursor: "pointer",
+                        }}
                         onClick={() => {
                             const direction = idx > experienceIndex ? 1 : -1;
                             setPage([page + (idx - experienceIndex), direction]);
