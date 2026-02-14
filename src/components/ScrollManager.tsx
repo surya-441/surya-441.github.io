@@ -17,7 +17,7 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
             e.preventDefault();
 
             const now = Date.now();
-            if (now - lastScrollTime.current < 1000 || isScrolling.current) {
+            if (now - lastScrollTime.current < 500 || isScrolling.current) {
                 return;
             }
 
@@ -54,7 +54,7 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
 
             setTimeout(() => {
                 isScrolling.current = false;
-            }, 1000);
+            }, 500);
         };
 
         window.addEventListener("wheel", handleWheel, { passive: false });
@@ -67,7 +67,7 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             const now = Date.now();
-            if (now - lastScrollTime.current < 1000) return;
+            if (now - lastScrollTime.current < 500) return;
 
             if (e.key === "ArrowDown" || e.key === "PageDown") {
                 e.preventDefault();
@@ -90,7 +90,7 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
             setActiveIndex(index);
             setTimeout(() => {
                 isScrolling.current = false;
-            }, 1000);
+            }, 500);
         };
 
         window.addEventListener("keydown", handleKeyDown);
@@ -99,7 +99,7 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
     
     return (
         <div 
-            className="w-full transition-transform duration-700 ease-in-out h-screen"
+            className="w-full transition-transform duration-300 ease-in-out h-screen"
             style={{ transform: `translateY(-${activeIndex * 100}vh)` }}
         >
             {children}
