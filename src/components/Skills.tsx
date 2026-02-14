@@ -62,27 +62,27 @@ const iconMap: Record<string, React.ReactNode> = {
 
 const Skills = () => {
     return (
-        <section className="h-screen w-full flex flex-col justify-center items-center relative px-4 py-8 snap-start overflow-hidden">
+        <section className="h-screen w-full flex flex-col justify-center items-center relative px-4 py-16 snap-start overflow-hidden">
             <ScrollIndicator direction="up" />
-            <div className="mt-[5vh] text-[clamp(2rem,5vh,3rem)] text-center font-extrabold leading-tight tracking-tight text-foreground shrink-0">
+            <div className="mt-1 text-[clamp(1.1rem,3.5vh,2rem)] text-center font-extrabold leading-tight tracking-tight text-foreground shrink-0">
                 Technical Skills
             </div>
-            <div className="mt-[4vh] grid grid-cols-1 sm:grid-cols-2 gap-[3vh] max-w-4xl w-full flex-1 overflow-y-auto px-4 pb-[5vh] custom-scrollbar">
+            <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-[clamp(0.25rem,0.8vh,1rem)] max-w-4xl w-full flex-1 flex flex-col justify-center pb-4">
                 {skills.map((category) => (
                     <div
                         key={category.category}
-                        className="rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-md transition-shadow"
+                        className="rounded-2xl border border-gray-200 dark:border-gray-700 p-[clamp(0.4rem,1.2vh,1rem)] shadow-sm hover:shadow-md transition-shadow"
                     >
-                        <h3 className="text-2xl font-bold text-foreground mb-6 border-b border-gray-100 dark:border-gray-800 pb-2">
+                        <h3 className="text-[clamp(0.85rem,2.2vh,1.2rem)] font-bold text-foreground mb-[clamp(0.4rem,1.2vh,1rem)] border-b border-gray-100 dark:border-gray-800 pb-0.5">
                             {category.category}
                         </h3>
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-[clamp(0.25rem,0.8vh,0.5rem)]">
                             {category.items.map((item) => (
                                 <div
                                     key={item}
-                                    className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg bg-gray-50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-200 dark:hover:border-blue-800 transition-colors"
+                                    className="flex items-center gap-[clamp(0.15rem,0.5vh,0.3rem)] px-1.5 py-0.5 text-[clamp(0.55rem,1.4vh,0.8rem)] font-medium rounded-lg bg-gray-50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-200 dark:hover:border-blue-800 transition-colors"
                                 >
-                                    <span className="text-lg text-blue-500 dark:text-blue-400">
+                                    <span className="text-[clamp(0.7rem,1.8vh,0.9rem)] text-blue-500 dark:text-blue-400">
                                         {iconMap[item] || <VscCode />}
                                     </span>
                                     {item}

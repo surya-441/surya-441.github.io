@@ -15,7 +15,7 @@ const scrollTextMapping: Record<ScrollDirection, string> = {
 const ScrollIndicator = ({ direction }: ScrollIndicatorProps) => {
   return (
     <div
-      className="absolute w-full text-center text-2xl"
+      className="absolute w-full text-center text-[clamp(1rem,3vh,1.5rem)]"
       style={{
         ...(direction === "up" ? { top: "20px" } : { bottom: "20px" }),
         color: "var(--accent)",
