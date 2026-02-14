@@ -1,14 +1,12 @@
 export default function Stickman() {
     return (
-        <div className="flex h-64">
+        <div className="flex h-[50vh]">
             <svg
-                className="stickman-svg"
+                className="stickman-svg w-full h-full"
                 role="img"
                 aria-label="Stickman illustration waving hello"
-                height="300.000000pt"
                 preserveAspectRatio="xMidYMid meet"
                 viewBox="0 0 300.000000 300.000000"
-                width="300.000000pt"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <metadata>
