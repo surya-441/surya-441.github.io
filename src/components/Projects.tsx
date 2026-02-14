@@ -16,12 +16,13 @@ const Projects = () => {
     };
 
     return (
-        <section className="h-screen w-full flex flex-col justify-center items-center relative px-4 py-8 snap-start overflow-hidden">
+        <section className="h-screen w-full flex flex-col justify-center items-center relative px-4 py-8 snap-start overflow-hidden bg-background">
             <ScrollIndicator direction="up" />
-            <div className="mt-[5vh] text-[clamp(2rem,5vh,3rem)] text-center font-extrabold leading-tight tracking-tight text-foreground shrink-0">
+
+            <div className="mb-[2vh] text-[clamp(2rem,5vh,3rem)] text-center font-extrabold leading-tight tracking-tight text-foreground shrink-0 z-10">
                 Curated Projects
             </div>
-            <div className="mt-[4vh] grid grid-cols-1 sm:grid-cols-2 gap-[2vh] max-w-5xl w-full flex-1 overflow-y-auto px-4 pb-[5vh] custom-scrollbar place-content-center">
+            <div className="mt-[4vh] grid grid-cols-1 sm:grid-cols-2 gap-[2vh] max-w-6xl w-full flex overflow-y-auto px-4 pb-[5vh] custom-scrollbar place-content-center">
                 {projects.map((project, idx) => {
                     const isExpanded = expandedIndex === idx;
                     return (

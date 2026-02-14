@@ -3,12 +3,13 @@ import ScrollIndicator from "./ScrollIndicator";
 
 const Education = () => {
     return (
-        <section className="h-screen w-full flex flex-col justify-center items-center relative px-4 py-8 snap-start overflow-hidden">
+        <section className="h-screen w-full flex flex-col justify-center items-center relative px-4 py-8 snap-start overflow-hidden bg-background">
             <ScrollIndicator direction="up" />
-            <div className="mt-[5vh] text-[clamp(2rem,5vh,3rem)] text-center font-extrabold leading-tight tracking-tight text-foreground shrink-0">
+
+            <div className="mb-[2vh] text-[clamp(2rem,5vh,3rem)] text-center font-extrabold leading-tight tracking-tight text-foreground shrink-0 z-10">
                 Education
             </div>
-            <div className="mt-[4vh] space-y-[clamp(1rem,2vh,3vh)] max-w-3xl w-full flex-1 flex flex-col justify-center">
+            <div className="mt-[4vh] space-y-[clamp(1rem,2vh,3vh)] max-w-3xl w-full flex flex-col justify-center">
                 {education.map((edu) => (
                     <div
                         key={edu.institution}
