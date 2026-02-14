@@ -4,6 +4,7 @@ import React from "react";
 import Stickman from "./Stickman";
 import ScrollIndicator from "./ScrollIndicator";
 import GitHubIcon from "@/icons/GitHubIcon";
+import { FaLinkedinIn } from "react-icons/fa";
 
 const Intro = () => {
     return (
@@ -29,9 +30,10 @@ const Intro = () => {
                     href="https://linkedin.com/in/suryassivakumar"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
                 >
-                    🔗 LinkedIn
+                    <FaLinkedinIn />
+                    LinkedIn
                 </a>
                 <a
                     href="https://github.com/surya-441"
