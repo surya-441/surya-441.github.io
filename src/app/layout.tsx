@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Patrick_Hand } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
+import { Analytics } from '@vercel/analytics/next';
+
 
 const patrickHand = Patrick_Hand({
     variable: "--font-patrick-hand",
@@ -43,6 +45,7 @@ export default function RootLayout({
                     enableSystem
                 >
                     {children}
+                    <Analytics />
                 </ThemeProvider>
             </body>
         </html>
