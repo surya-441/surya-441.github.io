@@ -46,9 +46,9 @@ const WorkExperience = () => {
   // Left/Right arrow key navigation for carousel
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'h') {
         paginate(-1);
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'l') {
         paginate(1);
       }
     };
