@@ -1,53 +1,56 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
-    --accent: #0070f3;
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent: #0070f3;
 }
 
 html.dark {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --accent: #3b9eff;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --accent: #3b9eff;
 }
 
 html,
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* ScrollManager container handles scrolling */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  html,
+  body {
+    overflow: hidden; /* Desktop: ScrollManager container handles scrolling */
+  }
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-patrick-hand);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-patrick-hand);
 }
 
-
-
 .stickman-svg g {
-    fill: var(--foreground);
+  fill: var(--foreground);
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: rgba(156, 163, 175, 0.5);
-    border-radius: 20px;
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 20px;
 }
 
 .custom-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
 }
-

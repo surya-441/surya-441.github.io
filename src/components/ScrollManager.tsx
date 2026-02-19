@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, ReactNode, useCallback } from 'react';
+import { useEffect, useRef, useState, ReactNode, useCallback } from 'react';
 
 interface ScrollManagerProps {
   children: ReactNode;
@@ -8,11 +8,23 @@ interface ScrollManagerProps {
 }
 
 const SCROLL_COOLDOWN = 500; // ms between section transitions
+const MD_BREAKPOINT = 768; // Tailwind md breakpoint
 
 const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const lastScrollTime = useRef(0);
   const isScrolling = useRef(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Track viewport size to enable/disable snap behavior
+  useEffect(() => {
+    const mql = window.matchMedia(`(min-width: ${MD_BREAKPOINT}px)`);
+    setIsDesktop(mql.matches);
+
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   const getCurrentSection = useCallback(() => {
     const container = containerRef.current;
@@ -34,7 +46,6 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
         behavior: 'smooth',
       });
 
-      // Reset scrolling flag after the smooth scroll completes
       setTimeout(() => {
         isScrolling.current = false;
       }, SCROLL_COOLDOWN);
@@ -42,14 +53,14 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
     [sectionCount]
   );
 
+  // Wheel event interception — desktop only
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || !isDesktop) return;
 
     const handleWheel = (e: WheelEvent) => {
       const now = Date.now();
 
-      // Check if we are inside a scrollable container
       const target = e.target as HTMLElement;
       const scrollableParent = target.closest('.custom-scrollbar, .overflow-y-auto');
 
@@ -58,15 +69,12 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
         const isAtTop = scrollTop <= 0;
         const isAtBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight - 1;
 
-        // Allow internal scrolling when not at boundary
         if (e.deltaY > 0 && !isAtBottom) return;
         if (e.deltaY < 0 && !isAtTop) return;
       }
 
-      // Prevent default scrolling — we handle it ourselves
       e.preventDefault();
 
-      // Cooldown check
       if (now - lastScrollTime.current < SCROLL_COOLDOWN || isScrolling.current) {
         return;
       }
@@ -82,9 +90,12 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
 
     container.addEventListener('wheel', handleWheel, { passive: false });
     return () => container.removeEventListener('wheel', handleWheel);
-  }, [sectionCount, getCurrentSection, scrollToSection]);
+  }, [sectionCount, getCurrentSection, scrollToSection, isDesktop]);
 
+  // Keyboard navigation — desktop only
   useEffect(() => {
+    if (!isDesktop) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       const now = Date.now();
       if (now - lastScrollTime.current < SCROLL_COOLDOWN || isScrolling.current) return;
@@ -106,12 +117,12 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [sectionCount, getCurrentSection, scrollToSection]);
+  }, [sectionCount, getCurrentSection, scrollToSection, isDesktop]);
 
   return (
     <div
       ref={containerRef}
-      className="w-full h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth"
+      className="w-full h-screen overflow-y-scroll scroll-smooth md:snap-y md:snap-mandatory"
     >
       {children}
     </div>
