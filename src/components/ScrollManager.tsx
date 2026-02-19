@@ -1,110 +1,121 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState, ReactNode } from "react";
+import { useEffect, useRef, ReactNode, useCallback } from 'react';
 
 interface ScrollManagerProps {
-    children: ReactNode;
-    sectionCount: number;
+  children: ReactNode;
+  sectionCount: number;
 }
 
+const SCROLL_COOLDOWN = 500; // ms between section transitions
+
 const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const lastScrollTime = useRef(0);
-    const isScrolling = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const lastScrollTime = useRef(0);
+  const isScrolling = useRef(false);
 
-    useEffect(() => {
-        const handleWheel = (e: WheelEvent) => {
-            e.preventDefault();
+  const getCurrentSection = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return 0;
+    return Math.round(container.scrollTop / container.clientHeight);
+  }, []);
 
-            const now = Date.now();
-            if (now - lastScrollTime.current < 500 || isScrolling.current) {
-                return;
-            }
+  const scrollToSection = useCallback(
+    (index: number) => {
+      const container = containerRef.current;
+      if (!container) return;
 
-            // Check if we are inside a scrollable container
-            const target = e.target as HTMLElement;
-            // Improved detection: look for scrollable areas specifically
-            const scrollableParent = target.closest(".custom-scrollbar, .overflow-y-auto");
+      const clamped = Math.max(0, Math.min(index, sectionCount - 1));
+      isScrolling.current = true;
+      lastScrollTime.current = Date.now();
 
-            if (scrollableParent) {
-                const { scrollTop, scrollHeight, clientHeight } = scrollableParent as HTMLElement;
-                const isAtTop = scrollTop <= 0;
-                // Use a small buffer (1px) for float imprecision
-                const isAtBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight - 1;
+      container.scrollTo({
+        top: clamped * container.clientHeight,
+        behavior: 'smooth',
+      });
 
-                if (e.deltaY > 0 && !isAtBottom) return; // Allow internal down scroll
-                if (e.deltaY < 0 && !isAtTop) return;   // Allow internal up scroll
-            }
+      // Reset scrolling flag after the smooth scroll completes
+      setTimeout(() => {
+        isScrolling.current = false;
+      }, SCROLL_COOLDOWN);
+    },
+    [sectionCount]
+  );
 
-            if (e.deltaY > 0) {
-                if (activeIndex < sectionCount - 1) {
-                    scrollToSection(activeIndex + 1);
-                }
-            } else {
-                if (activeIndex > 0) {
-                    scrollToSection(activeIndex - 1);
-                }
-            }
-        };
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-        const scrollToSection = (index: number) => {
-            isScrolling.current = true;
-            lastScrollTime.current = Date.now();
-            setActiveIndex(index);
+    const handleWheel = (e: WheelEvent) => {
+      const now = Date.now();
 
-            setTimeout(() => {
-                isScrolling.current = false;
-            }, 500);
-        };
+      // Check if we are inside a scrollable container
+      const target = e.target as HTMLElement;
+      const scrollableParent = target.closest('.custom-scrollbar, .overflow-y-auto');
 
-        window.addEventListener("wheel", handleWheel, { passive: false });
+      if (scrollableParent) {
+        const { scrollTop, scrollHeight, clientHeight } = scrollableParent as HTMLElement;
+        const isAtTop = scrollTop <= 0;
+        const isAtBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight - 1;
 
-        return () => {
-            window.removeEventListener("wheel", handleWheel);
-        };
-    }, [activeIndex, sectionCount]);
+        // Allow internal scrolling when not at boundary
+        if (e.deltaY > 0 && !isAtBottom) return;
+        if (e.deltaY < 0 && !isAtTop) return;
+      }
 
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            const now = Date.now();
-            if (now - lastScrollTime.current < 500) return;
+      // Prevent default scrolling — we handle it ourselves
+      e.preventDefault();
 
-            if (e.key === "ArrowDown" || e.key === "PageDown") {
-                e.preventDefault();
-                if (activeIndex < sectionCount - 1) {
-                    // Check logic for internal scroll could be added here if needed
-                    scrollToSection(activeIndex + 1);
-                }
-            } else if (e.key === "ArrowUp" || e.key === "PageUp") {
-                e.preventDefault();
-                if (activeIndex > 0) {
-                    scrollToSection(activeIndex - 1);
-                }
-            }
-        };
+      // Cooldown check
+      if (now - lastScrollTime.current < SCROLL_COOLDOWN || isScrolling.current) {
+        return;
+      }
 
-        // Reuse scrollToSection logic
-        const scrollToSection = (index: number) => {
-            isScrolling.current = true;
-            lastScrollTime.current = Date.now();
-            setActiveIndex(index);
-            setTimeout(() => {
-                isScrolling.current = false;
-            }, 500);
-        };
+      const current = getCurrentSection();
 
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [activeIndex, sectionCount]);
-    
-    return (
-        <div 
-            className="w-full transition-transform duration-300 ease-in-out h-screen"
-            style={{ transform: `translateY(-${activeIndex * 100}vh)` }}
-        >
-            {children}
-        </div>
-    );
+      if (e.deltaY > 0 && current < sectionCount - 1) {
+        scrollToSection(current + 1);
+      } else if (e.deltaY < 0 && current > 0) {
+        scrollToSection(current - 1);
+      }
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    return () => container.removeEventListener('wheel', handleWheel);
+  }, [sectionCount, getCurrentSection, scrollToSection]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const now = Date.now();
+      if (now - lastScrollTime.current < SCROLL_COOLDOWN || isScrolling.current) return;
+
+      const current = getCurrentSection();
+
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        if (current < sectionCount - 1) {
+          scrollToSection(current + 1);
+        }
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        if (current > 0) {
+          scrollToSection(current - 1);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [sectionCount, getCurrentSection, scrollToSection]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-full h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth"
+    >
+      {children}
+    </div>
+  );
 };
 
 export default ScrollManager;

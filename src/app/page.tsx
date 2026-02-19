@@ -8,7 +8,7 @@ import Skills from "@/components/Skills";
 
 export default function Home() {
     return (
-        <div className="bg-background text-foreground h-screen overflow-hidden">
+        <div className="bg-background text-foreground h-screen">
             <ThemeToggle />
             <ScrollManager sectionCount={5}>
                 <Intro />
