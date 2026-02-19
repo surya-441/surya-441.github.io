@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { experiences } from '../experiences';
 import ScrollIndicator from './ScrollIndicator';
 import TechPill from '@/components/TechPill';
@@ -36,9 +36,26 @@ const WorkExperience = () => {
   const experienceIndex = Math.abs(page % experiences.length);
   const exp = experiences[experienceIndex];
 
-  const paginate = (newDirection: number) => {
-    setPage([page + newDirection, newDirection]);
-  };
+  const paginate = useCallback(
+    (newDirection: number) => {
+      setPage(([prevPage]) => [prevPage + newDirection, newDirection]);
+    },
+    []
+  );
+
+  // Left/Right arrow key navigation for carousel
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        paginate(-1);
+      } else if (e.key === 'ArrowRight') {
+        paginate(1);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [paginate]);
 
   return (
     <section className="min-h-screen md:h-screen w-full flex flex-col justify-center items-center relative px-4 py-8 md:snap-start overflow-hidden bg-background">
