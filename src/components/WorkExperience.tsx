@@ -36,12 +36,9 @@ const WorkExperience = () => {
   const experienceIndex = Math.abs(page % experiences.length);
   const exp = experiences[experienceIndex];
 
-  const paginate = useCallback(
-    (newDirection: number) => {
-      setPage(([prevPage]) => [prevPage + newDirection, newDirection]);
-    },
-    []
-  );
+  const paginate = useCallback((newDirection: number) => {
+    setPage(([prevPage]) => [prevPage + newDirection, newDirection]);
+  }, []);
 
   // Left/Right arrow key navigation for carousel
   useEffect(() => {
