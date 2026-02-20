@@ -15,7 +15,8 @@ const KeyboardHint = () => {
         <KeyCap>↓</KeyCap>
         <KeyCap>→</KeyCap>
       </div>
-      <span className="text-md text-gray-400 dark:text-gray-500 mt-1">Navigation Keys</span>
+      {/* <span className="text-md text-gray-400 dark:text-gray-500 mt-1">Navigation Keys</span> */}
+      <span className="text-md text-gray-400 dark:text-gray-500 mt-1">You can navigate with vim bindings also.</span>
     </div>
   );
 };

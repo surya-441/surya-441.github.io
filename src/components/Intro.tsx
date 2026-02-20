@@ -6,6 +6,7 @@ import Stickman from './Stickman';
 import ScrollIndicator from './ScrollIndicator';
 import GitHubIcon from '@/icons/GitHubIcon';
 import { FaLinkedinIn } from 'react-icons/fa';
+import KeyboardHint from './KeyboardHint';
 
 const Intro = () => {
   const containerVariants: Variants = {
@@ -87,6 +88,7 @@ const Intro = () => {
         </motion.span>
       </motion.div>
       <Stickman />
+      <KeyboardHint />
       <ScrollIndicator direction="down" />
     </section>
   );
