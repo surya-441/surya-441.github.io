@@ -84,7 +84,7 @@ const Intro = () => {
           GitHub
         </motion.a>
         <motion.span variants={itemVariants} className="text-gray-500 dark:text-gray-500">
-          📍 Dallas, TX
+          📍 Phoneix, AZ
         </motion.span>
       </motion.div>
       <Stickman />
