@@ -20,7 +20,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="fixed top-4 right-4 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-[var(--foreground)] text-[var(--background)] shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
+      className="fixed top-4 right-4 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-foreground text-background shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
     >
       {resolvedTheme === 'dark' ? <SunIcon /> : <MoonIcon />}
     </button>
