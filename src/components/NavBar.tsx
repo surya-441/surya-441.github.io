@@ -37,15 +37,13 @@ const NavBar = () => {
           onClick={() => scrollToSection(index)}
           className={`text-lg tracking-wide transition-colors cursor-pointer ${
             currentSection === index
-              ? 'text-foreground'
+              ? 'text-accent'
               : 'text-foreground/40 hover:text-foreground/70'
           }`}
         >
-          <span className="text-foreground/60">[</span>
-          <span className={currentSection === index ? 'text-accent' : ''}>
-            {section.key}
-          </span>
-          <span className="text-foreground/60">]</span>
+          <span>[</span>
+          <span>{section.key}</span>
+          <span>]</span>
           {section.label.slice(1)}
         </button>
       ))}
