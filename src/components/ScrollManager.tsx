@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState, ReactNode, useCallback } from 'react';
+import { ScrollContext } from './ScrollContext';
+import NavBar from './NavBar';
 
 interface ScrollManagerProps {
   children: ReactNode;
@@ -15,6 +17,7 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
   const lastScrollTime = useRef(0);
   const isScrolling = useRef(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [currentSection, setCurrentSection] = useState(0);
 
   // Track viewport size to enable/disable snap behavior
   useEffect(() => {
@@ -46,12 +49,28 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
         behavior: 'smooth',
       });
 
+      setCurrentSection(clamped);
+
       setTimeout(() => {
         isScrolling.current = false;
       }, SCROLL_COOLDOWN);
     },
     [sectionCount]
   );
+
+  // Track current section on scroll (for mobile free-scroll)
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const section = Math.round(container.scrollTop / container.clientHeight);
+      setCurrentSection(section);
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Wheel event interception — desktop only
   useEffect(() => {
@@ -102,12 +121,12 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
 
       const current = getCurrentSection();
 
-      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 's' || e.key === 'j') {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
         if (current < sectionCount - 1) {
           scrollToSection(current + 1);
         }
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'w' || e.key === 'k') {
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
         e.preventDefault();
         if (current > 0) {
           scrollToSection(current - 1);
@@ -120,12 +139,15 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
   }, [sectionCount, getCurrentSection, scrollToSection, isDesktop]);
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full h-screen overflow-y-scroll scroll-smooth md:snap-y md:snap-mandatory"
-    >
-      {children}
-    </div>
+    <ScrollContext.Provider value={{ scrollToSection, currentSection }}>
+      <NavBar />
+      <div
+        ref={containerRef}
+        className="w-full h-screen overflow-y-scroll scroll-smooth md:snap-y md:snap-mandatory"
+      >
+        {children}
+      </div>
+    </ScrollContext.Provider>
   );
 };
 
