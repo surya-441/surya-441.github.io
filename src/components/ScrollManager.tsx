@@ -121,12 +121,12 @@ const ScrollManager = ({ children, sectionCount }: ScrollManagerProps) => {
 
       const current = getCurrentSection();
 
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'j') {
         e.preventDefault();
         if (current < sectionCount - 1) {
           scrollToSection(current + 1);
         }
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'k') {
         e.preventDefault();
         if (current > 0) {
           scrollToSection(current - 1);

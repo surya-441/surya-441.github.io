@@ -17,6 +17,7 @@ const NavBar = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
 
       const index = sections.findIndex((s) => s.key === e.key.toLowerCase());
       if (index !== -1) {
